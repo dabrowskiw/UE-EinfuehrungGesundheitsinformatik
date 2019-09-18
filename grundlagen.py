@@ -73,16 +73,16 @@ print(dat2.split(" "))
 
 # (das geht alles auch mit regexp, Modul re, aber das führt zu weit)
 
-# Split führt uns zu Datentypen. Neben den klassischen integer, float, string haben wir Arrays:
-x = [1, 2, 3, 4, 5, 6, 7, 8]
+# Split führt uns zu Datentypen. Neben den klassischen integer, float, string haben wir Listen:
+x = [1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]
 print(x)
 
-# Vorsicht: Durch die dynamische Typisierung geht das x=[1,2,3] oben: x ist jetzt kein integer mehr, sondern ein Array!
-# Adressierung von Arrays wie gewohnt:
+# Vorsicht: Durch die dynamische Typisierung geht das x=[1,2,3] oben: x ist jetzt kein integer mehr, sondern eine Liste!
+# Adressierung von Listen wie gewohnt:
 print(x[0])
 print(dat2.split(" ")[3])
 
-# Man kann mit Arrays viele lustige Dinge tun, z.B.:
+# Man kann mit Listen viele lustige Dinge tun, z.B.:
 # slicen
 print(x[2:5])
 print(x[5:]) 
@@ -91,6 +91,48 @@ print(x[:5])
 # von hinten adressieren
 print(x[-3])
 
-print(x[1,3,4])
+# Verketten, verschachteln und Datentypen darin mischen
+print(x + ["a", 2, ["b", "blub"]])
+
+# Elemente entfernen
+x.pop(3) # Das ist der Index
+print(x)
+x.remove(5) # Das ist der Wert des Elements (es wird das erste Vorkommen gelöscht)
+print(x)
+
+# Performance-Hinweis: Listen sind als voralloziierte pointer-Arrays implementiert, die bei Erreichen
+# der Kapazität wachsen (-> volle Kopie). 
+# pop last, get sind O(1), append ist amortisiert O(1), aber pop nach Index, remove sind O(n)!
+
+# Als abgespeckte Version existieren noch Tupel:
+tup = (1, 3, 4)
+print(tup)
+
+# Viel mehr als Zugriff geht damit nicht, tuples sind immutable (erlauben 
+# aber Optimierungen, sollten also wenn möglich statt Listen eingesetzt werden)
+
+# Dann gibt es noch Dictionaries (aus Java bekannt z.B. als HashMap):
+mydict = {"key": "value", "a": 5, "Zeugs": "sehr sinnvoll", 7: "sieben"}
+print(mydict)
+print(mydict["Zeugs"])
+mydict["Zeugs"] = "weniger sinnvoll"
+print(mydict["Zeugs"])
+
+# Ueberpruefung, ob ein key drin ist:
+print("Zeugs" in mydict)
+print("neuerkey" in mydict)
+mydict["neuerkey"] = "neuerwert"
+print("neuerkey" in mydict)
+print(mydict["neuerkey"])
+
+# Übrigens auch aus einem Tupel von Tupeln initialisierbar:
+mydict2 = dict((("7", "sieben"), ("acht", 8)))
+print(mydict2)
+
+
 
 # String-Konkatenation
+
+# Strings haben eine nette Methode, um Array-Elemente (von String-Arrays) zu verketten:
+words = ["Das", "sind", "Woerter"]
+print(" ".join(words))
