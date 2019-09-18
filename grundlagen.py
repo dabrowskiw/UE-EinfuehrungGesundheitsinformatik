@@ -129,7 +129,50 @@ print(mydict["neuerkey"])
 mydict2 = dict((("7", "sieben"), ("acht", 8)))
 print(mydict2)
 
+# Kontrollstrukturen verhalten sich wie gewohnt.
+# Ungewohnt:
+#  * Beginn eines Blocks wird mit : am Ende der Kontrollstuktur gekennzeichnet
+#  * Einrückung muss stimmen (und in gesamten Code konsistent sein, mal 3 Leerzeichen und mal 4 geht nicht).
+y = 12
+if y > 10:
+    y -= 3
+elif y <= 10:
+    y += 10
+else:
+    print("Geht nicht.")
+print(y)
 
+# Funktioniert nicht wegen fehlender Einrückung:
+if y > 10:
+print("y immer noch groesser 10")
+
+# While tut das, was while halt so tut:
+while y > 5:
+    print(y)
+    y -= 1
+
+# for ist zum iterieren da:
+letters = ["a", "b", "c"]
+for letter in letters:
+    print(letter)
+
+# Man kann über alles iterieren, was iterable ist:
+for x in range(0,10,3):
+    print(x)
+
+for key in mydict:
+    print(str(key) + ": " + str(mydict[key]))
+
+for item in mydict.items():
+    print(item)
+
+# Direktes Entpacken der Tupel:
+for key, value in mydict.items():
+    print(str(key) + ": " + str(value))
+
+# Geht übrigens mit >2 Elementen und überall wo Tupel/Listen zurückkommen:
+a, b, c = (1, 2, 5)
+print("{}, {}, {}".format(a, b, c))
 
 # String-Konkatenation
 
