@@ -157,6 +157,7 @@ for letter in letters:
     print(letter)
 
 # Man kann über alles iterieren, was iterable ist:
+print(range(2,7))
 for x in range(0,10,3):
     print(x)
 
@@ -174,8 +175,65 @@ for key, value in mydict.items():
 a, b, c = (1, 2, 5)
 print("{}, {}, {}".format(a, b, c))
 
-# String-Konkatenation
+# Eine Python-spezifische Form von Schleifen ist die list comprehension. Sie
+# definiert Operationen, die auf definierte Elemente einer iterable angewendet werden
+values = range(0, 20)
+even = [x for x in values if x%2 == 0]
+print(even)
+stringdict = dict([(str(x), x) for x in values])
+print(stringdict["12"])
 
-# Strings haben eine nette Methode, um Array-Elemente (von String-Arrays) zu verketten:
-words = ["Das", "sind", "Woerter"]
-print(" ".join(words))
+# Funktionsdefinitionen können überall im Code vorkommen (sollten es aber nicht ;) ):
+def add(x, y):
+    result = x+y
+    return result
+
+print(add(3,7))
+
+# Vorsicht: Funktionen müssen evaluiert worden sein, bevor sie aufgerufen werden (Live-Beispiel)
+
+# Namen in Funktionsdeklaration können auch in Aufruf verwendet werden:
+
+print(add(y=10, x=5))
+
+# Default-Parameter sind möglich:
+def sub(x, y, makepositive=False):
+    result = x - y
+    if makepositive:
+        result = abs(result)
+    return result
+
+print(sub(10, 15))
+print(sub(10, 15, True))
+
+# Funktionen sind first-class citizens:
+def dostuff(what, x, y):
+    print(what(x, y))
+
+function = sub
+dostuff(function, 10, 5)
+dostuff(add, 10, 5)
+
+
+# Randnotiz zu Performance jetzt wo wir ein paar Grundlagen kennn: strings sind immutable!
+# Entsprechend ist das hier extrem langsam:
+values = range(0, 1000000)
+from datetime import datetime
+starttime = datetime.utcnow()
+toprint = ""
+for value in values:
+    toprint += str(value) # O(m+n)!
+    toprint += ", "
+timediff = (datetime.utcnow() - starttime)
+print(1000000*timediff.seconds + timediff.microseconds)
+
+# Aber Listen sind O(1) erweiterbar, also:
+starttime = datetime.utcnow()
+toprint_arr = []
+for value in values:
+    toprint_arr += [str(value)] # O(1)
+    toprint_arr += [", "]
+toprint = "".join(toprint_arr)
+timediff = (datetime.utcnow() - starttime)
+print(1000000*timediff.seconds + timediff.microseconds)
+
