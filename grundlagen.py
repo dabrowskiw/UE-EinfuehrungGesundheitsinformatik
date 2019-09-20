@@ -241,6 +241,22 @@ print(tosort)
 tosort.sort(key=lambda x: -1*getprice(x)) # Alternativ tosort.sort(key=getprice, reverse=True)
 print(tosort)
 
+# Besonderheit von Python: Funktionen, die iterierbar sind. yield returnt zwar,
+# der Stack der Funktion bleibt aber beim nächsten Aufruf erhalten:
+
+def even_numbers(maxnum):
+    currentnum = 0
+    while currentnum < maxnum:
+        yield currentnum
+        currentnum += 2
+        
+for x in even_numbers(10):
+    print(x)
+
+# Das ist extrem nützlich, um z.B. über Werte einer rekursiv definierten Folge
+# zu laufen ohne sie komplett im Speicher zu halten oder sehr große Datensätze
+# zu verarbeiten. 
+
 # tosort ist hier aber blöd aufgebaut, schöner wäre das mit einer Klasse.
 # Besonderheiten in Python:
 #  * Constructor heißt immer __init__
@@ -331,6 +347,10 @@ print(fruit)
 
 # Sinnvolleres Beispiel: Uhr-Klasse, Kalender-Klasse existieren zum Verwalten von Uhrzeit
 # und Datum. Neue Klasse zum Darstellen eines Widgets mit Uhrzeit und Datum erbt von beiden.
+
+
+
+# Import, __main__
 
 # Randnotiz zu Performance jetzt wo wir ein paar Grundlagen kennn: strings sind immutable!
 # Entsprechend ist das hier extrem langsam:
