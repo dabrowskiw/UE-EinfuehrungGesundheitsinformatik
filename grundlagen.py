@@ -111,6 +111,12 @@ print(tup)
 # Viel mehr als Zugriff geht damit nicht, tuples sind immutable (erlauben 
 # aber Optimierungen, sollten also wenn möglich statt Listen eingesetzt werden)
 
+# Strings haben eine häufig verwendete, nette Methode, um Tupel und Arrays zu verketten:
+
+toprint = ["Das", "sind", "Woerter"]
+print(" ".join(toprint))
+print("--!--".join(toprint))
+
 # Dann gibt es noch Dictionaries (aus Java bekannt z.B. als HashMap):
 mydict = {"key": "value", "a": 5, "Zeugs": "sehr sinnvoll", 7: "sieben"}
 print(mydict)
@@ -289,6 +295,42 @@ apple._Fruit__privatkrams = "Nix meins."
 print(apple._Fruit__privatkrams)
 
 # Vererbung geht mit Klammern:
+
+class Banana(Fruit):
+    def __init__(self, cost, stock):
+        super().__init__("banana", cost, stock)
+        
+    def get_description(self):
+        return "I am a banana! I cost " + " ".join(super().get_description().split(" ")[2:])
+
+banana = Banana(10, 50)
+print(banana)
+
+# Es geht auch Mehrfachvererbung (im Gegensatz zu Java, wo nur mehrere Interfaces
+# implementiert werden können):
+
+class Coloredthing:
+    def __init__(self, color):
+        self.color = color
+    
+    def describe_color(self):
+        return "it is " + self.color
+    
+class Coloredfruit(Fruit, Coloredthing):
+    def __init__(self, name, price, stock, color):
+        # Warum kriegt __init__ hier explizit self?
+        Fruit.__init__(self, name, price, stock)
+        Coloredthing.__init__(self, color)
+        
+    def get_description(self):
+        # Wieso Fruit.get_description aber self.describe_color?
+        return Fruit.get_description(self) + " Also, " + self.describe_color()
+    
+fruit = Coloredfruit("apple", 5, 300, "red")
+print(fruit)
+
+# Sinnvolleres Beispiel: Uhr-Klasse, Kalender-Klasse existieren zum Verwalten von Uhrzeit
+# und Datum. Neue Klasse zum Darstellen eines Widgets mit Uhrzeit und Datum erbt von beiden.
 
 # Randnotiz zu Performance jetzt wo wir ein paar Grundlagen kennn: strings sind immutable!
 # Entsprechend ist das hier extrem langsam:
