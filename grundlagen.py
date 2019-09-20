@@ -214,6 +214,81 @@ function = sub
 dostuff(function, 10, 5)
 dostuff(add, 10, 5)
 
+# Tatsächliche Anwendung findet das z.B. beim Sortieren:
+
+tosort = [("apples", 5, 280), ("oranges", 12, 100), ("bananas", 5.9, 1200)]
+
+def getprice(fruit):
+    return fruit[1]
+
+def getstock(fruit):
+    return fruit[2]
+
+tosort.sort(key=getprice)
+print(tosort)
+tosort.sort(key=getstock)
+print(tosort)
+
+# Lambda-Expressions erlauben die anonyme Deklaration einfacher Funktionen:
+
+# Sort descending by price
+tosort.sort(key=lambda x: -1*getprice(x)) # Alternativ tosort.sort(key=getprice, reverse=True)
+print(tosort)
+
+# tosort ist hier aber blöd aufgebaut, schöner wäre das mit einer Klasse.
+# Besonderheiten in Python:
+#  * Constructor heißt immer __init__
+#  * Erstes Argument einer Methode ist immer self (in Java wäre das this),
+#    außer bei statischen Methoden.
+#  * Keine protected-Attribute (per Konvention _attribut), keine private-Attribute
+#    (per Konvention __attribut, aber immer noch als _klasse__attribut zugreifbar)
+class Fruit:
+    def __init__(self, name, price, stock):
+        self.price = price
+        self.stock = stock
+        self.name = name
+        self._krams = "Krams"
+        self.__privatkrams = "Meins!"
+        
+    def get_description(self):
+        return self.name + " costs " + str(self.price) + ", we have "+ str(self.stock) + " in stock."
+        
+    def print_fruit():
+        print("Fruit!")
+        
+#    def __str__(self):
+#        return self.get_description()
+#
+#    def __repr__(self):
+#        return str(self)
+  
+# Methodenaufrufe:      
+Fruit.print_fruit()
+# Geht natürlich nicht: 
+Fruit.print_description()
+
+tosort = [Fruit("apple", 5, 280), Fruit("orange", 12, 100), Fruit("banana", 5.9, 1200)]
+tosort.sort(key=lambda x: x.price)
+print(tosort)
+# Das sieht blöd aus. Magic-Methode __str__ wird zur Konversion in String verwendet,
+# __repr__ für Repräsentation in automatischen Ausgaben. 
+# Oben __str__ und __repr__ einkommentieren, nochmal evaluieren, dann sieht man den Unterschied.
+
+
+# "Private" Attribute:
+apple = Fruit("apples", 5, 280)
+print(apple._krams)
+apple._krams = "Anderer Krams!"
+print(apple._krams)
+
+# Private ist "ein bisschen mehr private":
+print(apple.__privatekrams)
+# Aber:
+print(apple._Fruit__privatkrams)
+apple._Fruit__privatkrams = "Nix meins."
+print(apple._Fruit__privatkrams)
+
+# Vererbung geht mit Klammern:
 
 # Randnotiz zu Performance jetzt wo wir ein paar Grundlagen kennn: strings sind immutable!
 # Entsprechend ist das hier extrem langsam:
