@@ -183,19 +183,6 @@ for key in mydict:
 for item in mydict.items():
     print(item)
 
-# Auch eine Text-Datei ist iterierbar:
-f = open("bakterientabelle_simple.txt", "r")
-lines = f.read().split("\n")
-f.close()
-for line in lines:
-    print(line)
-
-# Wo könnte hier das Problem sein?
-# Alternative:
-
-for line in open("bakterienteballe_simple.txt", "r"):
-    print(line)
-
 # AUFGABEN:
 # 1.1) Finden Sie 2 Methoden, um von einem String alle Zeichen
 #   zeilenweise auszugeben. Z.B. word = "test", Ergebnis:
@@ -315,6 +302,45 @@ for x in even_numbers(10):
 # Das ist extrem nützlich, um z.B. über Werte einer rekursiv definierten Folge
 # zu laufen ohne sie komplett im Speicher zu halten oder sehr große Datensätze
 # zu verarbeiten. 
+
+# Exkurs: Dateiverarbeitung
+# Datei öffnen (2. Argument ist mode, häufig: r, w, a. b ist binary, z.B. "rb"):
+infile = open("LICENSE.md", "r")
+data = infile.read()
+infile.close()
+
+# Ups... willkommen in der Hölle :(
+# Keine Ahnung, was das encoding ist? replace oder ignore:
+infile = open("LICENSE.md", "r", errors="replace")
+data = infile.read()
+infile.close()
+print(data[:100])
+
+# Bekannt? Angeben mit encoding.
+infile = open("LICENSE.md", "r", encoding="UTF-8")
+data = infile.read()
+infile.close()
+print(data[:100])
+
+# Auch eine Text-Datei ist iterierbar:
+infile = open("LICENSE.md", "r", encoding="UTF-8")
+lines = infile.read().split("\n")
+infile.close()
+for line in lines:
+    print(line)
+
+# Wo könnte hier das Problem sein?
+# Alternative:
+
+for line in open("LICENSE.md", "r", encoding="UTF-8"):
+    print(line)
+
+# AUFGABEN:
+# 3.1) Schreiben Sie eine Methode, die eine Datei nimmt und mittels yield 
+#   iterierbar zeilenweise (jede Zeile ohne das "\n" am Ende) zurückgibt. 
+# Beipsiel für Verwendung:
+# for line in linewise("LICENSE.md"):
+#     print(line)
 
 # tosort ist hier aber blöd aufgebaut, schöner wäre das mit einer Klasse.
 # Besonderheiten in Python:
