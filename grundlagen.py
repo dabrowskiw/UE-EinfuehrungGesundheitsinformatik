@@ -384,7 +384,7 @@ class Fruit:
 # Methodenaufrufe:      
 Fruit.print_fruit()
 # Geht natürlich nicht: 
-Fruit.print_description()
+Fruit.get_description()
 
 tosort = [Fruit("apple", 5, 280), Fruit("orange", 12, 100), Fruit("banana", 5.9, 1200)]
 tosort.sort(key=lambda x: x.price)
@@ -418,6 +418,14 @@ class Banana(Fruit):
 
 banana = Banana(10, 50)
 print(banana)
+
+# Abfrage, was was ist:
+
+isinstance(apple, Fruit)
+isinstance(apple, object)
+isinstance(apple, Banana)
+isinstance(banana, Fruit)
+isinstance(banana, Banana)
 
 # Es geht auch Mehrfachvererbung (im Gegensatz zu Java, wo nur mehrere Interfaces
 # implementiert werden können):
