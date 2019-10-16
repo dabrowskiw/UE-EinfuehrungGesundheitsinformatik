@@ -258,35 +258,6 @@ def sub(x, y, makepositive=False):
 print(sub(10, 15))
 print(sub(10, 15, True))
 
-# Funktionen sind first-class citizens:
-def dostuff(what, x, y):
-    print(what(x, y))
-
-function = sub
-dostuff(function, 10, 5)
-dostuff(add, 10, 5)
-
-# Tatsächliche Anwendung findet das z.B. beim Sortieren:
-
-tosort = [("apples", 5, 280), ("oranges", 12, 100), ("bananas", 5.9, 1200)]
-
-def getprice(fruit):
-    return fruit[1]
-
-def getstock(fruit):
-    return fruit[2]
-
-tosort.sort(key=getprice)
-print(tosort)
-tosort.sort(key=getstock)
-print(tosort)
-
-# Lambda-Expressions erlauben die anonyme Deklaration einfacher Funktionen:
-
-# Sort descending by price
-tosort.sort(key=lambda x: -1*getprice(x)) # Alternativ tosort.sort(key=getprice, reverse=True)
-print(tosort)
-
 # Besonderheit von Python: Funktionen, die iterierbar sind. yield returnt zwar,
 # der Stack der Funktion bleibt aber beim nächsten Aufruf erhalten:
 
@@ -298,6 +269,15 @@ def even_numbers(maxnum):
         
 for x in even_numbers(10):
     print(x)
+    
+# Eine Funktion, die mittels yield Werte zurückgibt und somit iterierbar ist,
+# wird als Generator bezeichnet.
+
+# Generatoren können schrittweise abgefragt werden:
+
+nums = even_numbers(1000)
+print(next(nums))
+print(next(nums))
 
 # Das ist extrem nützlich, um z.B. über Werte einer rekursiv definierten Folge
 # zu laufen ohne sie komplett im Speicher zu halten oder sehr große Datensätze
@@ -336,11 +316,42 @@ for line in open("LICENSE.md", "r", encoding="UTF-8"):
     print(line)
 
 # AUFGABEN:
-# 3.1) Schreiben Sie eine Methode, die eine Datei nimmt und mittels yield 
+# 3.1) Schreiben Sie einen Generator, der eine Datei nimmt und mittels yield 
 #   iterierbar zeilenweise (jede Zeile ohne das "\n" am Ende) zurückgibt. 
 # Beipsiel für Verwendung:
 # for line in linewise("LICENSE.md"):
 #     print(line)
+# 3.2*) Schreiben Sie einen Generator, der Primzahlen liefert
+# 3.3*) Schreiben Sie einen Generator, der die Fibonacci-Folge liefert
+
+# Funktionen sind first-class citizens:
+def dostuff(what, x, y):
+    print(what(x, y))
+
+function = sub
+dostuff(function, 10, 5)
+dostuff(add, 10, 5)
+
+# Tatsächliche Anwendung findet das z.B. beim Sortieren:
+
+tosort = [("apples", 5, 280), ("oranges", 12, 100), ("bananas", 5.9, 1200)]
+
+def getprice(fruit):
+    return fruit[1]
+
+def getstock(fruit):
+    return fruit[2]
+
+tosort.sort(key=getprice)
+print(tosort)
+tosort.sort(key=getstock)
+print(tosort)
+
+# Lambda-Expressions erlauben die anonyme Deklaration einfacher Funktionen:
+
+# Sort descending by price
+tosort.sort(key=lambda x: -1*getprice(x)) # Alternativ tosort.sort(key=getprice, reverse=True)
+print(tosort)
 
 # tosort ist hier aber blöd aufgebaut, schöner wäre das mit einer Klasse.
 # Besonderheiten in Python:
@@ -349,6 +360,7 @@ for line in open("LICENSE.md", "r", encoding="UTF-8"):
 #    außer bei statischen Methoden.
 #  * Keine protected-Attribute (per Konvention _attribut), keine private-Attribute
 #    (per Konvention __attribut, aber immer noch als _klasse__attribut zugreifbar)
+
 class Fruit:
     def __init__(self, name, price, stock):
         self.price = price
@@ -457,7 +469,7 @@ toprint = "".join(toprint_arr)
 timediff = (datetime.utcnow() - starttime)
 print(1000000*timediff.seconds + timediff.microseconds)
 
-# AUFGABEN:
+# ZUSATZAUFGABEN:
 # X.1*) Schreiben Sie eine Funktion, die - gegeben eine Zahl von 0 bis
 #   999,999,999,999 - diese auf Deutsch oder Englisch (Sprache=Funktionsargument)
 #   als Text ausgibt.
