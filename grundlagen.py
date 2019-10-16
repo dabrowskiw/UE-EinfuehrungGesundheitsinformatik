@@ -183,6 +183,19 @@ for key in mydict:
 for item in mydict.items():
     print(item)
 
+# Auch eine Text-Datei ist iterierbar:
+f = open("bakterientabelle_simple.txt", "r")
+lines = f.read().split("\n")
+f.close()
+for line in lines:
+    print(line)
+
+# Wo könnte hier das Problem sein?
+# Alternative:
+
+for line in open("bakterienteballe_simple.txt", "r"):
+    print(line)
+
 # AUFGABEN:
 # 1.1) Finden Sie 2 Methoden, um von einem String alle Zeichen
 #   zeilenweise auszugeben. Z.B. word = "test", Ergebnis:
@@ -208,7 +221,6 @@ for item in mydict.items():
 #    tTes
 #   stTe
 #  estT
-
 
 # Direktes Entpacken der Tupel:
 for key, value in mydict.items():
