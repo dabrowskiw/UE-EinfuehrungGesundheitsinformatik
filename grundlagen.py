@@ -135,6 +135,16 @@ print(mydict["neuerkey"])
 mydict2 = dict((("7", "sieben"), ("acht", 8)))
 print(mydict2)
 
+# Ein set ist eine Menge und kann jedes Element nur ein Mal enthalten:
+
+myset = set()
+myset.add(15)
+myset.add("blub")
+print(myset)
+myset.add(14)
+myset.add(15)
+print(myset)
+
 # Kontrollstrukturen verhalten sich wie gewohnt.
 # Ungewohnt:
 #  * Beginn eines Blocks wird mit : am Ende der Kontrollstuktur gekennzeichnet
@@ -162,7 +172,7 @@ letters = ["a", "b", "c"]
 for letter in letters:
     print(letter)
 
-# Man kann über alles iterieren, was iterable ist:
+# Man kann über alles iterieren, was iterable ist (auch strings sind z.B. iterable):
 print(range(2,7))
 for x in range(0,10,3):
     print(x)
@@ -185,6 +195,32 @@ for line in lines:
 
 for line in open("bakterienteballe_simple.txt", "r"):
     print(line)
+
+# AUFGABEN:
+# 1.1) Finden Sie 2 Methoden, um von einem String alle Zeichen
+#   zeilenweise auszugeben. Z.B. word = "test", Ergebnis:
+# t
+# e
+# s
+# t
+# 1.2) Geben Sie von den Buchstaben des Wortes jeden nur ein Mal aus. Z.B.
+#   word = "test", Ergebnis:
+# t
+# e
+# s
+# 1.3) Drehen Sie die Zeichen in einem String um, z.B. word = "Zeichenkette", nach
+#   Ausführung ist word == "etteknehcieZ"
+# 1.4*) Bauen Sie aus einem String (z.B. "test") ein Array aller Rotationen
+#   dieses String (-> ["test", "estt", "stte", "estt"])
+# 1.5*) Erweitern Sie 1.4 indem aus einem Array von Strings eine dictionary
+#   generiert wird, die zu jedem der Strings (key) die Liste aller Rotationen
+#   wie in 1.4* beschrieben ablegt (values).
+# 1.6*) Erweitern Sie 1.4*, indem Sie eine um den ersten Buchstaben zentrierte
+#   Ausgabe erstellen. Z.B. word = "Test", Ausgabe:
+#     Test
+#    tTes
+#   stTe
+#  estT
 
 # Direktes Entpacken der Tupel:
 for key, value in mydict.items():
