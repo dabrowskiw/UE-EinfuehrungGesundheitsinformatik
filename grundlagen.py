@@ -226,6 +226,16 @@ print(even)
 stringdict = dict([(str(x), x) for x in values])
 print(stringdict["12"])
 
+# AUFGABEN:
+# 2.1) Lösen Sie 1.1 mittels list comprehension (evenfalls 2 Methoden)
+# 2.2) Lösen Sie 1.2 nochmals unter Mitverwendung einer list comprehension
+# 2.3) Zählen Sie unter Verwendung einer list comprehension, wie häufig in einem
+#   String das Zeichen "t" vorkommt.
+# 2.4*) Schreiben Sie eine list comprehension, die alle ungeraden Zahlen bis 100 
+#   ausgibt
+# 2.5*) Schreiben Sie eine list comprehension, die alle Primzahlen bis 100 ausgibt.
+#   Tipp: Sie können list comprehensions verschachteln
+
 # Funktionsdefinitionen können überall im Code vorkommen (sollten es aber nicht ;) ):
 def add(x, y):
     result = x+y
@@ -385,8 +395,6 @@ print(fruit)
 # Sinnvolleres Beispiel: Uhr-Klasse, Kalender-Klasse existieren zum Verwalten von Uhrzeit
 # und Datum. Neue Klasse zum Darstellen eines Widgets mit Uhrzeit und Datum erbt von beiden.
 
-
-
 # Import, __main__
 
 # Randnotiz zu Performance jetzt wo wir ein paar Grundlagen kennn: strings sind immutable!
@@ -411,3 +419,7 @@ toprint = "".join(toprint_arr)
 timediff = (datetime.utcnow() - starttime)
 print(1000000*timediff.seconds + timediff.microseconds)
 
+# AUFGABEN:
+# X.1*) Schreiben Sie eine Funktion, die - gegeben eine Zahl von 0 bis
+#   999,999,999,999 - diese auf Deutsch oder Englisch (Sprache=Funktionsargument)
+#   als Text ausgibt.
