@@ -453,7 +453,37 @@ print(fruit)
 # Sinnvolleres Beispiel: Uhr-Klasse, Kalender-Klasse existieren zum Verwalten von Uhrzeit
 # und Datum. Neue Klasse zum Darstellen eines Widgets mit Uhrzeit und Datum erbt von beiden.
 
-# Import, __main__
+# Vanilla-Python kann leider nicht allzu viel. Dafür gibt es aber eine Menge an Module.
+# Standard-Library: https://docs.python.org/3/py-modindex.html
+# pip: https://pypi.org
+# Beispiel: OS
+
+import os
+files = os.listdir(".")
+print("\n".join([x for x in files if x.endswith(".txt")]))
+
+from os import getcwd
+print(getcwd())
+
+# Das ist auch super, um eigene Module zu schreiben. Import evaluiert das gesamte Modul.
+import mymodules
+mymodules.dostuff("Exercise")
+
+# Vorsicht beim interaktiven Testen: Module werden nur ein Mal geladen. Abhilfe:
+from importlib import reload
+reload(mymodules)
+
+# AUFGABEN:
+# 4.1) Lagern Sie den Generator aus 3.1 in eine eigene Klasse in einem neuen Modul aus. Beispiel für Verwendung:
+# from readmodule import Linewisereader
+# lr = Linewisereader("README.md", encoding="UTF-8")
+# for line in lr.lines():
+#     print(line)
+# 4.2*) Erweitern Sie Linewisereader um zwei Methoden:
+# reopen(): Öffnet die Datei nochmal neu, so dass lines() wieder von Vorne iteriert
+# set_encoding(): Setzt das encoding neu und macht ein reopen()
+# Tip: Denken Sie an das singleton-Pattern.
+
 
 # Randnotiz zu Performance jetzt wo wir ein paar Grundlagen kennn: strings sind immutable!
 # Entsprechend ist das hier extrem langsam:
