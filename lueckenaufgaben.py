@@ -123,7 +123,7 @@ text = "Das hier ist ein Satz mit vielen Wörtern."
 wordswithi = []
 allwords = %1%
 for %2%:
-    if %3%:
+    if %3%: # Der operator "in" funktioniert auch bei Strings!
         wordwithi += %4%
     print(wordswithi)
 
@@ -139,9 +139,33 @@ multiples = [%1% + %2% for word in %3%]
 stems = ["kauf", "lern", "mach", "sitz", "denk"]
 singular_conjugations = [[%1%, %2%, %3%] for %4% in %5%]
 
-# Bei Wortsämmen, die mit t enden muss bei der 2. und 3. Person noch ein "e" dazwischen. Bauen Sie aus irregular_stems
+# Bei Wortsämmen, die mit t enden muss bei der 2. und 3. Person noch ein "e" dazwischen. Bauen Sie aus t_stems
 # ein Arrray singular_conjugations auf:
-irregular_stems = ["arbeit", "antwort", "beobacht", "bitt", "heirat"]
+t_stems = ["arbeit", "antwort", "beobacht", "bitt", "heirat"]
 singular_conjugations = [[%1%] for %2]
 
+# In mixed_stems sind die beiden Wortstammtypen oben gemischt. Bauen Sie singular_conjugations nur aus den
+# nicht mit "t" endenden Wortstämmen auf:
+mixed_stems = ["kauf", "lern", "arbeit", "antwort", "mach", "beobacht", "sitz", "denk", "bitt", "heirat"]
+singular_conjugations = [%1% for %2% if %3%]
 
+# Bauen Sie nun aus mixed_stems singular_conjugations so auf, dass die Konjugationen für alle Wörter korrekt
+# erstellt werden
+mixed_stems = ["kauf", "lern", "arbeit", "antwort", "mach", "beobacht", "sitz", "denk", "bitt", "heirat"]
+singular_conjugations = [%1% if %2%]
+singular_conjugations %3% [%4%]
+
+# Kleine Wiederholung:
+# Erstellen Sie ein Array mit 10 Elementen, von denen 4 gleich sind. Erstellen Sie daraus ein neues Array, das jedes
+# dieser Elemente nur ein Mal enthält.
+values = [%1%]
+unique_values = [%1% in %2%(values)] # Welcher Datentyp bietet sich hier an?
+
+# Nur die Wörter, die i enthalten, aus dem Satz ausgeben:
+text = "Das hier ist ein Satz mit vielen Wörtern."
+only_i = [%1% in text.%2%(%3%) if %4%]
+
+# Die Wörter mit i zählen
+text = "Das hier ist ein Satz mit vielen Wörtern."
+only_i = %1%
+num_words = %2%(only_i)

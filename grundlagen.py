@@ -277,30 +277,32 @@ print(add(3,7))
 
 # Vorsicht: Funktionen müssen evaluiert worden sein, bevor sie aufgerufen werden (Live-Beispiel)
 
-# Namen in Funktionsdeklaration können auch in Aufruf verwendet werden:
+# Namen in Funktionsdeklaration können auch in Aufruf verwendet werden (named parameters):
 
 print(add(y=10, x=5))
 
 # Default-Parameter sind möglich:
-def sub(x, y, makepositive=False):
+def somefunction(x, y, defaultparam=False):
     result = x - y
-    if makepositive:
+    if defaultparam:
         result = abs(result)
     return result
 
-print(sub(10, 15))
-print(sub(10, 15, True))
+# Was kommt jeweils raus?
+print(somefunction(10, 15))
+print(somefunction(10, 15, True))
 
 # Besonderheit von Python: Funktionen, die iterierbar sind. yield returnt zwar,
 # der Stack der Funktion bleibt aber beim nächsten Aufruf erhalten:
 
-def even_numbers(maxnum):
+def generatorfunction(maxnum):
     currentnum = 0
     while currentnum < maxnum:
         yield currentnum
         currentnum += 2
-        
-for x in even_numbers(10):
+
+# Was wird ausgegeben?
+for x in generatorfunction(10):
     print(x)
     
 # Eine Funktion, die mittels yield Werte zurückgibt und somit iterierbar ist,
@@ -308,7 +310,7 @@ for x in even_numbers(10):
 
 # Generatoren können schrittweise abgefragt werden:
 
-nums = even_numbers(1000)
+nums = generatorfunction(1000)
 print(next(nums))
 print(next(nums))
 
