@@ -50,7 +50,6 @@ print(x)
 # Vorsicht: Durch die dynamische Typisierung geht das x=[1,2,3] oben: x ist jetzt kein integer mehr, sondern eine Liste!
 # Adressierung von Listen wie gewohnt:
 print(x[0])
-print(dat2.split(" ")[3])
 
 # Man kann mit Listen viele lustige Dinge tun, z.B.:
 # slicen
@@ -251,8 +250,17 @@ print("{}, {}, {}".format(a, b, c))
 # Eine Python-spezifische Form von Schleifen ist die list comprehension. Sie
 # definiert Operationen, die auf definierte Elemente einer iterable angewendet werden
 values = range(0, 20)
-even = [x for x in values if x%2 == 0]
+even = []
+for x in values:
+    if x % 2 == 0:
+        even += [x]
 print(even)
+even = [x for x in values]
+even = [str(x+1) for x in values if x % 2 == 0 and x < 12]
+print(even)
+even = [[y for y in range(0, x)] for x in range(0, 20)]
+print(even)
+
 stringdict = dict([(str(x), x) for x in values])
 print(stringdict["12"])
 
@@ -263,7 +271,7 @@ print(stringdict["12"])
 # 2.2) Lösen Sie 1.2 nochmals unter Mitverwendung einer list comprehension
 # 2.3) Zählen Sie unter Verwendung einer list comprehension, wie häufig in einem
 #   String das Zeichen "t" vorkommt.
-# 2.4*) Schreiben Sie eine list comprehension, die alle ungeraden Zahlen bis 100 
+# 2.4*) Schreiben Sie eine list comprehension, die alle ungeraden Zahlen bis 100
 #   ausgibt
 # 2.5*) Schreiben Sie eine list comprehension, die alle Primzahlen bis 100 ausgibt.
 #   Tipp: Sie können list comprehensions verschachteln
@@ -316,209 +324,120 @@ print(next(nums))
 
 # Das ist extrem nützlich, um z.B. über Werte einer rekursiv definierten Folge
 # zu laufen ohne sie komplett im Speicher zu halten oder sehr große Datensätze
-# zu verarbeiten. 
+# zu verarbeiten.
+
+# AUFGABEN
+# * Schreiben Sie einen Generator, der ungerade Zahlen (unendlich, beginnend
+#   bei 0) liefert
+# * Schreiben Sie einen Generator, der die Fibonacci-Folge liefert
+#   Hinweis: Sie können yield überall in der Generator-Funktion verwenden.
 
 # Exkurs: Dateiverarbeitung
+# Download einer FASTA-Datei (fluA, https://www.ncbi.nlm.nih.gov/nuccore/)
 # Datei öffnen (2. Argument ist mode, häufig: r, w, a. b ist binary, z.B. "rb"):
-infile = open("LICENSE.md", "r")
+infile = open("sequence.fasta", "r") # infile ist jetzt ein "handle" für die Datei
 data = infile.read()
 infile.close()
 
-# Ups... willkommen in der Hölle :(
-# Keine Ahnung, was das encoding ist? replace oder ignore:
-infile = open("LICENSE.md", "r", errors="replace")
-data = infile.read()
-infile.close()
-print(data[:100])
-
-# Bekannt? Angeben mit encoding.
-infile = open("LICENSE.md", "r", encoding="UTF-8")
-data = infile.read()
-infile.close()
-print(data[:100])
-
-# Auch eine Text-Datei ist iterierbar:
-infile = open("LICENSE.md", "r", encoding="UTF-8")
+# Man kann wunderschön einfach alle Zeilen aus einer Textdatei hintereinander verarbeiten:
+infile = open("sequence.fasta", "r")
 lines = infile.read().split("\n")
 infile.close()
 for line in lines:
     print(line)
 
 # Wo könnte hier das Problem sein?
-# Alternative:
-
-for line in open("LICENSE.md", "r", encoding="UTF-8"):
+# Alternative: auch eine Text-Datei ist iterierbar:
+for line in open("sequence.fasta", "r"):
     print(line)
+# Warum sind da Leerzeilen dazwischen? Warum waren da vorher keine? Was kann man dagegen tun?
 
-# AUFGABEN:
-# 3.1) Schreiben Sie einen Generator, der eine Datei nimmt und mittels yield 
-#   iterierbar zeilenweise (jede Zeile ohne das "\n" am Ende) zurückgibt. 
-# Beipsiel für Verwendung:
-# for line in linewise("LICENSE.md"):
-#     print(line)
-# 3.2*) Schreiben Sie einen Generator, der Primzahlen liefert
-# 3.3*) Schreiben Sie einen Generator, der die Fibonacci-Folge liefert
 
 # Funktionen sind first-class citizens:
 def dostuff(what, x, y):
     print(what(x, y))
 
+def sub(x, y):
+    return x - y
+
 function = sub
 dostuff(function, 10, 5)
-dostuff(add, 10, 5)
 
-# Tatsächliche Anwendung findet das z.B. beim Sortieren:
+# Wird gerne zum Sortieren eingesetzt:
+data = ["bleblebleble", "teeest", "ein Wort"]
 
-tosort = [("apples", 5, 280), ("oranges", 12, 100), ("bananas", 5.9, 1200)]
+print(data)
+data.sort(key=len)
+print(data)
+# Lambda expressions: Anonyme Funktionen
+data.sort(key=lambda x: x.count("e"))
+print(data)
 
-def getprice(fruit):
-    return fruit[1]
-
-def getstock(fruit):
-    return fruit[2]
-
-tosort.sort(key=getprice)
-print(tosort)
-tosort.sort(key=getstock)
-print(tosort)
-
-# Lambda-Expressions erlauben die anonyme Deklaration einfacher Funktionen:
-
-# Sort descending by price
-tosort.sort(key=lambda x: -1*getprice(x)) # Alternativ tosort.sort(key=getprice, reverse=True)
-print(tosort)
-
-# tosort ist hier aber blöd aufgebaut, schöner wäre das mit einer Klasse.
+# Natürlich geht in Python auch objektorientiertes Programmieren
 # Besonderheiten in Python:
 #  * Constructor heißt immer __init__
 #  * Erstes Argument einer Methode ist immer self (in Java wäre das this),
 #    außer bei statischen Methoden.
 #  * Keine protected-Attribute (per Konvention _attribut), keine private-Attribute
-#    (per Konvention __attribut, aber immer noch als _klasse__attribut zugreifbar)
+#    (per Konvention __attribut)
 
-class Fruit:
-    def __init__(self, name, price, stock):
-        self.price = price
-        self.stock = stock
+class Sequence:
+    def __init__(self, name, sequence):
+        self.type = "Sequence"
         self.name = name
-        self._krams = "Krams"
-        self.__privatkrams = "Meins!"
-        
-    def get_description(self):
-        return self.name + " costs " + str(self.price) + ", we have "+ str(self.stock) + " in stock."
-        
-    def print_fruit():
-        print("Fruit!")
-        
-#    def __str__(self):
-#        return self.get_description()
-#
-#    def __repr__(self):
-#        return str(self)
-  
-# Methodenaufrufe:      
-Fruit.print_fruit()
-# Geht natürlich nicht: 
-Fruit.get_description()
+        self.sequence = sequence
 
-tosort = [Fruit("apple", 5, 280), Fruit("orange", 12, 100), Fruit("banana", 5.9, 1200)]
-tosort.sort(key=lambda x: x.price)
+    def get_description(self):
+        return "{} {} is {} bases long.".format(self.type, self.name, len(self.sequence))
+
+seq = Sequence("1", "ATGGCTGCGTCATGA")
+print(seq.get_description())
+print(seq)
+# Geht das nicht schicker? __str__!
+
+# Vererbung geht natürlich auch (beliebige Mehrfachvererbung)!
+
+Bases = "TCAG"
+Codons = [a + b + c for a in Bases for b in Bases for c in Bases]
+Aminoacids = 'FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG'
+Codontable = dict(zip(Codons, Aminoacids))
+
+class Gene(Sequence):
+    def __init__(self, name, sequence):
+        super().__init__(name, sequence)  # mro!
+        self.type = "Gene"
+        # __: Private
+        self.__translation = "".join([Codontable[self.sequence[x:x + 3]] for x in range(0, len(self.sequence), 3)])
+
+    def get_translation(self):
+        return self.__translation
+
+
+mygene = Gene("Some gene", "ATGGCTGCGTCATGA")
+print(mygene)
+print(mygene.get_translation())
+isinstance(mygene, Gene)
+isinstance(mygene, Sequence)
+isinstance(seq, Gene)
+
+tosort = [Gene("Gene 1", "ATGGCTGCGTCATGA"), Gene("Gene 2", "ATGCGAACGCCCCGTTGA"), Gene("Gene 3", "ATGGCCTGA")]
+print(tosort[0])
+# Geht das nicht schicker? __str__!
+
+# Sortieren nach Länge der Sequenz?
+# Sortieren nach Anzahl von Alaninen (A) in der Translation?
 print(tosort)
-# Das sieht blöd aus. Magic-Methode __str__ wird zur Konversion in String verwendet,
-# __repr__ für Repräsentation in automatischen Ausgaben. 
-# Oben __str__ und __repr__ einkommentieren, nochmal evaluieren, dann sieht man den Unterschied.
+# Das sieht blöd aus: __repr__!
 
+# Vorsicht: __translation ist nur "ein bisschen" private!
 
-# "Private" Attribute:
-apple = Fruit("apples", 5, 280)
-print(apple._krams)
-apple._krams = "Anderer Krams!"
-print(apple._krams)
-
-# Private ist "ein bisschen mehr private":
-print(apple.__privatekrams)
-# Aber:
-print(apple._Fruit__privatkrams)
-apple._Fruit__privatkrams = "Nix meins."
-print(apple._Fruit__privatkrams)
-
-# Vererbung geht mit Klammern:
-
-class Banana(Fruit):
-    def __init__(self, cost, stock):
-        super().__init__("banana", cost, stock)
-        
-    def get_description(self):
-        return "I am a banana! I cost " + " ".join(super().get_description().split(" ")[2:])
-
-banana = Banana(10, 50)
-print(banana)
-
-# Abfrage, was was ist:
-
-isinstance(apple, Fruit)
-isinstance(apple, object)
-isinstance(apple, Banana)
-isinstance(banana, Fruit)
-isinstance(banana, Banana)
-
-# Es geht auch Mehrfachvererbung (im Gegensatz zu Java, wo nur mehrere Interfaces
-# implementiert werden können):
-
-class Coloredthing:
-    def __init__(self, color):
-        self.color = color
-    
-    def describe_color(self):
-        return "it is " + self.color
-    
-class Coloredfruit(Fruit, Coloredthing):
-    def __init__(self, name, price, stock, color):
-        # Warum kriegt __init__ hier explizit self?
-        Fruit.__init__(self, name, price, stock)
-        Coloredthing.__init__(self, color)
-        
-    def get_description(self):
-        # Wieso Fruit.get_description aber self.describe_color?
-        return Fruit.get_description(self) + " Also, " + self.describe_color()
-    
-fruit = Coloredfruit("apple", 5, 300, "red")
-print(fruit)
-
-# Sinnvolleres Beispiel: Uhr-Klasse, Kalender-Klasse existieren zum Verwalten von Uhrzeit
-# und Datum. Neue Klasse zum Darstellen eines Widgets mit Uhrzeit und Datum erbt von beiden.
-
-# Vanilla-Python kann leider nicht allzu viel. Dafür gibt es aber eine Menge an Module.
-# Standard-Library: https://docs.python.org/3/py-modindex.html
-# pip: https://pypi.org
-# Beispiel: OS
-
-import os
-files = os.listdir(".")
-print("\n".join([x for x in files if x.endswith(".txt")]))
-
-from os import getcwd
-print(getcwd())
-
-# Das ist auch super, um eigene Module zu schreiben. Import evaluiert das gesamte Modul.
-import mymodules
-mymodules.dostuff("Exercise")
-
-# Vorsicht beim interaktiven Testen: Module werden nur ein Mal geladen. Abhilfe:
-from importlib import reload
-reload(mymodules)
-
-# AUFGABEN:
-# 4.1) Lagern Sie den Generator aus 3.1 in eine eigene Klasse in einem neuen Modul aus. Beispiel für Verwendung:
-# from readmodule import Linewisereader
-# lr = Linewisereader("README.md", encoding="UTF-8")
-# for line in lr.lines():
-#     print(line)
-# 4.2*) Erweitern Sie Linewisereader um zwei Methoden:
-# reopen(): Öffnet die Datei nochmal neu, so dass lines() wieder von Vorne iteriert
-# set_encoding(): Setzt das encoding neu und macht ein reopen()
-# Tip: Denken Sie an das singleton-Pattern.
-
+gene = tosort[0]
+print(gene.__translation)
+print(gene.get_translation())
+gene.__translation = "Bla"
+print(gene.__translation)
+gene._Gene__translation = "Bla"
+print(gene.get_translation())
 
 # Randnotiz zu Performance jetzt wo wir ein paar Grundlagen kennn: strings sind immutable!
 # Entsprechend ist das hier extrem langsam:
@@ -546,3 +465,6 @@ print(1000000*timediff.seconds + timediff.microseconds)
 # X.1*) Schreiben Sie eine Funktion, die - gegeben eine Zahl von 0 bis
 #   999,999,999,999 - diese auf Deutsch oder Englisch (Sprache=Funktionsargument)
 #   als Text ausgibt.
+
+# https://ewels.github.io/sra-explorer/ (virus->fattening pig->fasta)
+

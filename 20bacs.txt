@@ -1,0 +1,20 @@
+Enterobase Barcode   Name    Accession number   Collection Year Collection Month Collection Day Continent   Country          Serovar ST        SNP Addresses         dataset A   dataset B   dataset C
+SAL_CA4860AA         34199   SRR1965044                    2014                7             24 Europe      United Kingdom   Enteritidis  2066 1.2.3.38.38.38.367                          
+SAL_CA4812AA         40793   SRR1965094                    2014                8             12 Europe      United Kingdom   Enteritidis 26206 1.2.3.38.38.38.395                          
+SAL_CA4740AA         40799   SRR1965168                    2014                8             15 Europe      United Kingdom   Enteritidis 26270 1.2.3.38.38.38.367                          
+SAL_CA4651AA         25341   SRR1965266                    2014                6             25 Europe      United Kingdom   Enteritidis 26347 1.2.3.38.38.38.38                           
+SAL_CA4566AA         50361   SRR1965353                    2014                9              4 Europe      United Kingdom   Enteritidis  2066 1.2.3.38.38.38.413                          
+SAL_CA4560AA         38361   SRR1965359                    2014                7             28 Europe      United Kingdom   Enteritidis  2066 1.2.3.38.38.38.367                          
+SAL_CA4550AA         38314   SRR1965369                    2014                7             29 Europe      United Kingdom   Enteritidis 26438 1.2.3.38.38.38.367                          
+SAL_CA4544AA         32523   SRR1965375                    2014                7             15 Europe      United Kingdom   Enteritidis  7153 1.2.3.38.38.38.393                          
+SAL_CA4510AA         38420   SRR1965410                    2014                7             29 Europe      United Kingdom   Enteritidis 26468 1.2.3.38.38.38.413                          
+SAL_CA4496AA         37823   SRR1965424                    2014                7             30 Europe      United Kingdom   Enteritidis 26481 1.2.3.38.38.38.393                          
+SAL_CA4462AA         38418   SRR1965458                    2014                7             30 Europe      United Kingdom   Enteritidis 26511 1.2.3.38.38.38.413                          
+SAL_CA4457AA         38311   SRR1965464                    2014                7             29 Europe      United Kingdom   Enteritidis 26516 1.2.3.38.38.38.367                          
+SAL_CA4417AA         37832   SRR1965506                    2014                7             31 Europe      United Kingdom   Enteritidis 26550 1.2.3.38.38.38.2451                         
+SAL_CA4391AA         37819   SRR1965533                    2014                7             29 Europe      United Kingdom   Enteritidis  2066 1.2.3.38.38.38.413                          
+SAL_CA4375AA         21777   SRR1965549                    2014                6             12 Europe      United Kingdom   Enteritidis 26585 1.2.3.38.38.38.38                           
+SAL_CA4343AA         38766   SRR1965590                    2014                8              5 Europe      United Kingdom   Enteritidis  2066 1.2.3.38.38.38.367                          
+SAL_CA4339AA         38426   SRR1965596                    2014                7             28 Europe      United Kingdom   Enteritidis 26616 1.2.3.38.38.38.367                          
+SAL_CA4312AA         38421   SRR1965623                    2014                7             29 Europe      United Kingdom   Enteritidis 26639 1.2.3.38.38.38.413                          
+SAL_CA4259AA         31929   SRR1965679                    2014                7             21 Europe      United Kingdom   Enteritidis 26685 1.2.3.38.38.38.367                          
